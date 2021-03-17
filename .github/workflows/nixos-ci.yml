@@ -24,10 +24,11 @@ jobs:
         run: |
           nix-env --install elinks -f '<nixpkgs>'
 
-      - name: Build
+      - name: Build & Test
         shell: bash
         run: |
           nix-build -j auto
+          result/bin/purebred --version
           nix-shell --command 'PATH=$PATH:result/bin cabal v2-test --test-show-details=streaming uat'
           echo -e "[database]\npath=$(pwd)" > ${HOME}/.notmuch-config
           nix-shell --command 'pushd docs/man && PATH=$PATH:../../result/bin make && popd'
