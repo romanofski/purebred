@@ -1,7 +1,12 @@
 name: NixOS Build (Flakes - build only)
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - edited
 jobs:
   linux:
     name: Nix
